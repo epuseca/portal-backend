@@ -10,6 +10,11 @@ const auth = (req, res, next) => {
             //verify token
             try {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET)
+                req.user = {
+                    email: decoded.email,
+                    name: decoded.name,
+                    createBy: "GiaLoc"
+                }
                 console.log("Check token:", decoded)
                 next()
             } catch (error) {
