@@ -49,6 +49,16 @@ const putTagService = async (data) => {
     }
 
 }
+const putTagIdService = async (id, data) => {
+    try {
+        await Tag.updateOne({ _id: id }, data); // không cần spread toàn bộ nữa
+        const updatedTag = await Tag.findById(id);
+        return updatedTag;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
 const deleteTagService = async (id) => {
     try {
         let result = await Tag.findByIdAndDelete(id)
@@ -59,11 +69,22 @@ const deleteTagService = async (id) => {
     }
 
 }
+const deleteTagIdService = async (paramsString) => {
+    try {
+        let result = await Tag.findByIdAndDelete(paramsString)
+        return result
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
 
+}
 module.exports = {
     createTagService,
     getTagService,
     putTagService,
     deleteTagService,
     getTagByIdService,
+    deleteTagIdService,
+    putTagIdService,
 }

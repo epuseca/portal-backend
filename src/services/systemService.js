@@ -49,6 +49,16 @@ const putSystemService = async (data) => {
     }
 
 }
+const putSystemIdService = async (id, data) => {
+    try {
+        await System.updateOne({ _id: id }, data); // không cần spread toàn bộ nữa
+        const updatedSystem = await System.findById(id);
+        return updatedSystem;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
 const deleteSystemService = async (id) => {
     try {
         let result = await System.findByIdAndDelete(id)
@@ -59,11 +69,22 @@ const deleteSystemService = async (id) => {
     }
 
 }
+const deleteSystemIdService = async (paramsString) => {
+    try {
+        let result = await System.findByIdAndDelete(paramsString)
+        return result
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
 
+}
 module.exports = {
     createSystemService,
     getSystemService,
     putSystemService,
     deleteSystemService,
     getSystemByIdService,
+    putSystemIdService,
+    deleteSystemIdService
 }

@@ -61,7 +61,28 @@ const getUserByIdService = async (paramsString) => {
 }
 const putUserService = async (data) => {
     try {
-        let result = await User.updateOne({ _id: data.id }, { ...data })
+        await User.updateOne({ _id: data.id }, { ...data });
+        const updatedUser = await User.findById(data.id); // Lấy lại dữ liệu mới
+        return updatedUser;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+const putUserIdService = async (id, data) => {
+    try {
+        await User.updateOne({ _id: id }, data); // không cần spread toàn bộ nữa
+        const updatedUser = await User.findById(id);
+        return updatedUser;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const deleteUserService = async (id) => {
+    try {
+        let result = await User.findByIdAndDelete(id)
         return result
     } catch (error) {
         console.log(error);
@@ -69,9 +90,9 @@ const putUserService = async (data) => {
     }
 
 }
-const deleteUserService = async (id) => {
+const deleteUserIdService = async (paramsString) => {
     try {
-        let result = await User.findByIdAndDelete(id)
+        let result = await User.findByIdAndDelete(paramsString)
         return result
     } catch (error) {
         console.log(error);
@@ -135,4 +156,6 @@ module.exports = {
     putUserService,
     deleteUserService,
     getUserByIdService,
+    deleteUserIdService,
+    putUserIdService,
 }

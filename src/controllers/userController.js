@@ -1,4 +1,4 @@
-const { createUserService, loginService, getUserService, putUserService, deleteUserService, getUserByIdService } = require("../services/userService")
+const { createUserService, loginService, getUserService, putUserService, deleteUserService, getUserByIdService, deleteUserIdService, putUserIdService } = require("../services/userService")
 
 const createUser = async (req, res) => {
     const { name, email, password } = req.body
@@ -23,8 +23,18 @@ const putUser = async (req, res) => {
     const data = await putUserService(req.body)
     return res.status(200).json(data)
 }
+const putUserId = async (req, res) => {
+    const userId = req.params.id;
+    const data = await putUserIdService(userId, req.body); // truyền id riêng
+    return res.status(200).json(data);
+}
 const deleteUser = async (req, res) => {
     const data = await deleteUserService(req.body.id)
+    return res.status(200).json({ data })
+}
+const deleteUserId = async (req, res) => {
+    const data = await deleteUserIdService(req.params.id)
+    console.log("req.params:", req.params.id)
     return res.status(200).json({ data })
 }
 const getAccount = async (req, res) => {
@@ -37,5 +47,7 @@ module.exports = {
     getAccount,
     putUser,
     deleteUser,
+    deleteUserId,
     getUserById,
+    putUserId
 }
