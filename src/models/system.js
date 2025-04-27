@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const systemSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
-        image: String,
+        image: {
+            data: Buffer,
+            contentType: String
+        },
         description: String,
         linkAccess: String,
         linkInstruct: String,
