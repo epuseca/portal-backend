@@ -5,7 +5,7 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken')
 const aqp = require('api-query-params')
 
-const createUserService = async (name, email, password) => {
+const createUserService = async (name, email, password, role) => {
     try {
         //check user exist
         const user = await User.findOne({ email })
@@ -21,7 +21,7 @@ const createUserService = async (name, email, password) => {
             name: name,
             email: email,
             password: hashPassword,
-            role: "Admin"
+            role: role
         })
         return result;
 
