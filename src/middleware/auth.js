@@ -2,7 +2,7 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
-    const white_lists = ["/", "/?populate=listSystem", "/register", "/login", "/account"];
+    const white_lists = ["/", "/?populate=listSystem", "/register", "/login"];
     const dynamicWhiteList = [/^\/v1\/api\/system\/[^\/]/]; // regex cần thêm /v1/api vào
     const originalUrl = req.originalUrl;
     const isStaticWhiteListed = white_lists.find(item => '/v1/api' + item === originalUrl);

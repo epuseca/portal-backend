@@ -10,7 +10,6 @@ const getTag = async (req, res) => {
 }
 const getTagById = async (req, res) => {
     const data = await getTagByIdService(req.params.idTag)
-    console.log("req.params:", req.params.idTag)
     return res.status(200).json(data)
 }
 const putTag = async (req, res) => {
@@ -28,7 +27,6 @@ const deleteTag = async (req, res) => {
 }
 const deleteTagId = async (req, res) => {
     const data = await deleteTagIdService(req.params.id)
-    console.log("req.params:", req.params.id)
     return res.status(200).json({ data })
 }
 module.exports = {

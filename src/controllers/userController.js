@@ -16,7 +16,6 @@ const getUser = async (req, res) => {
 }
 const getUserById = async (req, res) => {
     const data = await getUserByIdService(req.params.idUser)
-    console.log("req.params:", req.params.idUser)
     return res.status(200).json(data)
 }
 const putUser = async (req, res) => {
@@ -34,7 +33,6 @@ const deleteUser = async (req, res) => {
 }
 const deleteUserId = async (req, res) => {
     const data = await deleteUserIdService(req.params.id)
-    console.log("req.params:", req.params.id)
     return res.status(200).json({ data })
 }
 const getAccount = async (req, res) => {

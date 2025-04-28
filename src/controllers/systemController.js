@@ -11,7 +11,6 @@ const getSystem = async (req, res) => {
 }
 const getSystemById = async (req, res) => {
     const data = await getSystemByIdService(req.params.idSystem)
-    console.log("req.params:", req.params.idSystem)
     return res.status(200).json(data)
 }
 const putSystem = async (req, res) => {
@@ -29,7 +28,6 @@ const deleteSystem = async (req, res) => {
 }
 const deleteSystemId = async (req, res) => {
     const data = await deleteSystemIdService(req.params.id)
-    console.log("req.params:", req.params.id)
     return res.status(200).json({ data })
 }
 const uploadImageSystem = async (req, res) => {
