@@ -62,6 +62,42 @@ const getImageSystemById = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+const uploadDocumentSystem = async (req, res) => {
+    try {
+        const systemId = req.params.id;
+        const system = await System.findById(systemId);
+        if (!system) return res.status(404).json({ message: "System not found" });
+
+        system.document = {
+            data: req.file.buffer,
+            contentType: req.file.mimetype,
+            fileName: req.file.originalname
+        };
+
+        await system.save();
+        return res.status(200).json({ message: "Document uploaded successfully", system });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+const getDocumentSystemById = async (req, res) => {
+    try {
+        const system = await System.findById(req.params.id);
+        if (!system || !system.document || !system.document.data) {
+            return res.status(404).json({ message: "Document not found" });
+        }
+
+        res.set('Content-Type', system.document.contentType);
+        res.set('Content-Disposition', `attachment; filename=${system.document.fileName}`);
+        return res.send(system.document.data);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 
 module.exports = {
     createSystem,
@@ -72,5 +108,7 @@ module.exports = {
     putSystemId,
     deleteSystemId,
     uploadImageSystem,
-    getImageSystemById
+    getImageSystemById,
+    getDocumentSystemById,
+    uploadDocumentSystem
 }

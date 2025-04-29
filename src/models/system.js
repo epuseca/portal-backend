@@ -7,6 +7,11 @@ const systemSchema = new mongoose.Schema(
             data: Buffer,
             contentType: String
         },
+        document: {
+            data: Buffer,
+            contentType: String,
+            fileName: String
+        },
         description: String,
         linkAccess: String,
         linkInstruct: String,
