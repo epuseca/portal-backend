@@ -3,7 +3,7 @@ const { createUser, handleLogin, getUser, getAccount, putUser, deleteUser, getUs
 const auth = require('../middleware/auth');
 const delay = require('../middleware/delay');
 const { createTag, getTag, getTagById, putTag, deleteTag, deleteTagId, putTagId } = require('../controllers/tagController');
-const { createSystem, getSystem, getSystemById, putSystem, deleteSystem, putSystemId, deleteSystemId, uploadImageSystem, getImageSystemById, uploadDocumentSystem, getDocumentSystemById } = require('../controllers/systemController');
+const { createSystem, getSystem, getSystemById, putSystem, deleteSystem, putSystemId, deleteSystemId, uploadImageSystem, getImageSystemById, uploadDocumentSystem, getDocumentSystemById, addTagToSystem } = require('../controllers/systemController');
 const routerAPI = express.Router();
 const upload = require('../models/multer');
 
@@ -44,5 +44,7 @@ routerAPI.post("/system/:id/upload-image", upload.single('image'), uploadImageSy
 routerAPI.get("/system/:id/image", getImageSystemById);
 routerAPI.post("/system/:id/upload-document", upload.single('document'), uploadDocumentSystem);
 routerAPI.get("/system/:id/document", getDocumentSystemById);
+routerAPI.post('/system/add-tag', addTagToSystem);
+
 
 module.exports = routerAPI; //export default

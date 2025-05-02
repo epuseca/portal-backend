@@ -1,6 +1,7 @@
 require('dotenv').config()
 const System = require("../models/system");
-const aqp = require('api-query-params')
+const aqp = require('api-query-params');
+const Tag = require('../models/tag');
 
 const createSystemService = async (data) => {
     try {
@@ -79,6 +80,30 @@ const deleteSystemIdService = async (paramsString) => {
     }
 
 }
+
+const addTagToSystemService = async (systemId, tagId) => {
+    try {
+        const system = await System.findById(systemId);
+        const tag = await Tag.findById(tagId);
+
+        if (!system || !tag) {
+            throw new Error('System or Tag not found');
+        }
+        if (!system.listTag.includes(tagId)) {
+            system.listTag.push(tagId);
+            await system.save();
+        }
+        if (!tag.listSystem.includes(systemId)) {
+            tag.listSystem.push(systemId);
+            await tag.save();
+        }
+        return { message: 'Tag added to system successfully', system, tag };
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 module.exports = {
     createSystemService,
     getSystemService,
@@ -86,5 +111,6 @@ module.exports = {
     deleteSystemService,
     getSystemByIdService,
     putSystemIdService,
-    deleteSystemIdService
+    deleteSystemIdService,
+    addTagToSystemService
 }

@@ -16,7 +16,8 @@ const systemSchema = new mongoose.Schema(
         linkAccess: String,
         linkInstruct: String,
         managingUnit: String,
-        contactPoint: String
+        contactPoint: String,
+        listTag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tag' }]
     },
     {
         timestamps: true, // createdAt, updatedAt

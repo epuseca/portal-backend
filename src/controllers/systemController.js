@@ -1,5 +1,5 @@
 const System = require("../models/system")
-const { createSystemService,  getSystemService, putSystemService, deleteSystemService, getSystemByIdService, putSystemIdService, deleteSystemIdService } = require("../services/systemService")
+const { createSystemService,  getSystemService, putSystemService, deleteSystemService, getSystemByIdService, putSystemIdService, deleteSystemIdService, addTagToSystemService } = require("../services/systemService")
 
 const createSystem = async (req, res) => {
     const data = await createSystemService(req.body)
@@ -97,6 +97,15 @@ const getDocumentSystemById = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+const addTagToSystem = async (req, res) => {
+    try {
+        const { systemId, tagId } = req.body;
+        const result = await addTagToSystemService(systemId, tagId);
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
 
 
 module.exports = {
@@ -110,5 +119,6 @@ module.exports = {
     uploadImageSystem,
     getImageSystemById,
     getDocumentSystemById,
-    uploadDocumentSystem
+    uploadDocumentSystem,
+    addTagToSystem
 }
